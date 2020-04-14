@@ -1,33 +1,39 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
+import EventCreate from '../views/EventCreate'
+import EventList from '../views/EventList'
+import EventShow from '../views/EventShow'
+import User from '../views/User'
 
 Vue.use(VueRouter)
 
 const routes = [
   {
     path: '/',
-    name: 'Home',
-    component: Home
+    name: 'event-list',
+    component: EventList
   },
   {
-    path: '/about-us',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "about" */ '../views/About.vue'),
-
-    alias: '/about' //option to the path /about. Both paths /about and /about-us work
+    path: '/event/:id',
+    name: 'event-show',
+    component: EventShow,
+    props: true
+  },
+  {
+    path: '/event/create',
+    name: 'event-create',
+    component: EventCreate
+  },
+  {
+    path: '/user/:username',
+    name: 'user',
+    component: User,
+    props: true //$route.params is set as the component props
   }
-  /*{
-    path: '/about',
-    redirect: { name: 'About' }
-  }*/
 ]
 
 const router = new VueRouter({
+  mode: 'history', // Uses the browser's history.pushstate API to change the URL without reloading the page. Remove the # and alway return index.html
   routes
 })
 
